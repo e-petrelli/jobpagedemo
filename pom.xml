@@ -8,7 +8,7 @@
     <artifactId>job-page-demo</artifactId>
 
     <properties>
-        <app.deploy.project>job-page-demo</app.deploy.project>
+        <app.deploy.project>jobpagedemo</app.deploy.project>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
