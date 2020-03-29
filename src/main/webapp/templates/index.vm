@@ -99,10 +99,8 @@
 <footer class="text-muted">
     <div class="container">
         <p class="float-right"><a href="#">Back to top</a></p>
-        <p>
-            Job Page Demo
-            <br>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>.
-        </p>
+        <p>Job Page Demo</p>
+        <p>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>. <a href="https://github.com/e-petrelli/jobpagedemo">Source code on GitHub</a></p>
     </div>
 </footer>
 
