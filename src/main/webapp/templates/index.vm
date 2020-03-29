@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+    <title>Job Page Demo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/index.html?smartToken=${content.smartToken}&language=${content.language}">Job Page Demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                <li class="nav-item active">
+                    <span class="nav-link">
+                        Language:
+                        <div class="btn-group">
+                          <a href="/index.html?smartToken=${content.smartToken}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
+                          <a href="/index.html?smartToken=${content.smartToken}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
+                          <a href="/index.html?smartToken=${content.smartToken}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+            <form method="get" class="form-inline mt-2 mt-md-0" action="/index.html">
+                <input type="hidden" name="smartToken" value="${content.smartToken}">
+                <input type="hidden" name="language" value="${content.language}">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" value="$!{content.searchText}">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <br>
+            <br>
+            <br>
+            <h1 class="jumbotron-heading">Job Page Demo</h1>
+            <p class="lead text-muted">This page is built using SmartRecruiters API's</p>
+            <p class="lead text-muted">The API token in use belongs to <strong>${content.userEntity.firstName} ${content.userEntity.lastName} (${content.userEntity.email})</strong></p>
+            <!--
+                        <p>
+                            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+                            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+                        </p>
+            -->
+        </div>
+    </section>
+
+    #if ($content.JobSummaries.size() == 0)
+        <div class="alert alert-success" role="alert">
+            Sorry, no jobs found with this combination of parameters
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    #else
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    #foreach( $jobSummary in $content.JobSummaries )
+                        <div class="col-md-4 col-sm-6">
+                            <div class="card mb-4 box-shadow">
+                                <div class="card-body">
+                                    <h5 class="card-title">$jobSummary.title</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">$!{jobSummary.department.label}</h6>
+                                    <p class="card-text">$jobSummary.location.city</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <a href="/jobDetail/${jobSummary.id}.html?smartToken=${content.smartToken}&language=${content.language}" class="btn btn-sm btn-outline-secondary">View details</a>
+                                        <small class="text-muted text-right">
+                                            ref: $jobSummary.refNumber
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    #end
+                </div>
+            </div>
+        </div>
+    #end
+    </div>
+    </div>
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>
+            Job Page Demo
+            <br>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>.
+        </p>
+    </div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

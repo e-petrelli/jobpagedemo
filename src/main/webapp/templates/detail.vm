@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
+    <title>Job Page Demo - ${content.jobDetails.title}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/index.html?smartToken=${content.smartToken}&language=${content.language}">Job Page Demo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+                <li class="nav-item active">
+                    <span class="nav-link">
+                        Language:
+                        <div class="btn-group">
+                          <a href="/index.html?smartToken=${content.smartToken}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
+                          <a href="/index.html?smartToken=${content.smartToken}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
+                          <a href="/index.html?smartToken=${content.smartToken}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
+                        </div>
+                    </span>
+                </li>
+            </ul>
+            <form method="get" class="form-inline mt-2 mt-md-0" action="/index.html">
+                <input type="hidden" name="smartToken" value="${content.smartToken}">
+                <input type="hidden" name="language" value="${content.language}">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" value="$!{content.searchText}">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</header>
+
+<main role="main">
+
+    <div class="container" style="margin-top: 100px">
+
+        <h1>${content.jobDetails.title}</h1>
+        <div class="lead">ref: ${content.jobDetails.refNumber}</div>
+        <br>
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                #if($content.jobDetails.jobAd.sections.companyDescription.text.length() > 0)
+                    <h4>Company Description</h4>
+                    <span class="text-justify">${content.jobDetails.jobAd.sections.companyDescription.text}</span>
+                    <br>
+                #end
+
+                #if($content.jobDetails.jobAd.sections.jobDescription.text.length() > 0)
+                    <h4>Job Description</h4>
+                    <span class="text-justify">${content.jobDetails.jobAd.sections.jobDescription.text}</span>
+                    <br>
+                #end
+
+                #if($content.jobDetails.jobAd.sections.qualifications.text.length() > 0)
+                    <h4>Qualifications</h4>
+                    <span class="text-justify">${content.jobDetails.jobAd.sections.qualifications.text}</span>
+                    <br>
+                #end
+
+                #if($content.jobDetails.jobAd.sections.additionalInformation.text.length() > 0)
+                    <h4>Additional Information</h4>
+                    <span class="text-justify">${content.jobDetails.jobAd.sections.additionalInformation.text}</span>
+                    <br>
+                #end
+
+                <h5>Job Location:</h5>
+                <p class="text-muted">
+                    City: <strong>${content.jobDetails.location.city}</strong>
+                    <br>Address: ${content.jobDetails.location.address}
+                    <br>$!{content.jobDetails.location.postalCode} $!{content.jobDetails.location.country}
+                </p>
+
+            </div>
+
+            <div class="col-md-4 text-center">
+                <a href="${content.jobDetails.actions.applyOnWeb.url}" class="form-control btn btn-primary btn-lg">I'm interested</a>
+                <small class="form-text text-muted">Apply on standard page</small>
+            </div>
+
+        </div>
+
+        <div class="row d-none d-md-block text-center">
+            <div class="col-md-12">
+                <a href="${content.jobDetails.actions.applyOnWeb.url}" class="form-control btn btn-primary btn-lg">I'm interested</a>
+                <small class="form-text text-muted">Apply on standard page</small>
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+<br><br>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right"><a href="#">Back to top</a></p>
+        <p>
+            Job Page Demo
+            <br>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>.
+        </p>
+    </div>
+</footer>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
