@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-    <title>Job Page Demo - Insert Token</title>
+    <title>Job Page Demo - Insert Company Identifier</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -28,22 +28,22 @@
             <br>
             <h1 class="jumbotron-heading">Job Page Demo</h1>
             <p class="lead text-muted">
-                This web app uses a SmartRecruiters API Token to read current published vacancies and creates a simple Careers Page.
-                <br>Currently there's no token, or the token provided is not valid.
+                This web app uses SmartRecruiters Publication API to read published vacancies and to create a simple Careers Page.
+                <br>Current Company Identifier is not valid or has not been spcified.
             </p>
             <form action="/index.html" method="get">
                 <div class="row">
                     <div class="col-sm"></div>
                     <div class="col-sm">
                         <div class="form-group">
-                            <label for="smartToken">API Token</label>
-                            <input type="text" class="form-control" id="smartToken" name="smartToken" aria-describedby="smartTokenHelp" placeholder="API Token">
-                            <small id="smartTokenHelp" class="form-text text-muted">Still don't know it? Ask your Implementation Consultant</small>
+                            <label for="instanceId">Company Identifier</label>
+                            <input type="text" class="form-control" id="companyIdentifier" name="companyIdentifier" aria-describedby="companyIdentifierHelp" placeholder="Instance Id">
+                            <small id="companyIdentifierHelp" class="form-text text-muted">Still don't know it? Ask your Implementation Consultant</small>
                         </div>
 
                         <div class="form-group">
                             <input type="hidden" name="language" value="en">
-                            <button type="submit" class="btn btn-primary my-2">Insert API Token</button>
+                            <button type="submit" class="btn btn-primary my-2">Insert Company Identifier</button>
                         </div>
 
                     </div>
@@ -57,9 +57,12 @@
 
 <footer class="text-muted">
     <div class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>Job Page Demo</p>
-        <p>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>. <a href="https://github.com/e-petrelli/jobpagedemo">Source code on GitHub</a></p>
+        <div class="float-right"><a href="#">Back to top</a></div>
+        <p>
+            <strong>Job Page Demo</strong>
+            <br>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>
+            <br>Source code on <a href="https://github.com/e-petrelli/jobpagedemo">GitHub</a>
+        </p>
     </div>
 </footer>
 

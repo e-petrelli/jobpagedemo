@@ -4,13 +4,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-    <title>Job Page Demo - ${content.jobDetails.title}</title>
+    <title>Job Page Demo - ${content.companyIdentifier} - ${content.posting.name}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+
+<!--
+<pre>${content.posting}</pre>
+-->
+
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/index.html?smartToken=${content.smartToken}&language=${content.language}">Job Page Demo</a>
+        <a class="navbar-brand" href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}">Job Page Demo - ${content.companyIdentifier}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,15 +25,15 @@
                     <span class="nav-link">
                         Language:
                         <div class="btn-group">
-                          <a href="/index.html?smartToken=${content.smartToken}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
-                          <a href="/index.html?smartToken=${content.smartToken}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
-                          <a href="/index.html?smartToken=${content.smartToken}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
+                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
+                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
+                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
                         </div>
                     </span>
                 </li>
             </ul>
             <form method="get" class="form-inline mt-2 mt-md-0" action="/index.html">
-                <input type="hidden" name="smartToken" value="${content.smartToken}">
+                <input type="hidden" name="companyIdentifier" value="${content.companyIdentifier}">
                 <input type="hidden" name="language" value="${content.language}">
                 <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" value="$!{content.searchText}">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -41,61 +46,97 @@
 
     <div class="container" style="margin-top: 100px">
 
-        <h1>${content.jobDetails.title}</h1>
-        <div class="lead">ref: ${content.jobDetails.refNumber}</div>
-        <br>
 
-        <div class="row">
+        #if (!$content.posting.refNumber)
+            <div class="alert alert-success text-center" role="alert">
+                Sorry, this job is not available using this language
+                <br>Back to <a class="alert-link" href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}">Home Page</a>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        #else
+            <h1>${content.posting.name}</h1>
+            <div class="lead">ref: ${content.posting.refNumber}</div>
+            <br>
 
-            <div class="col-md-8">
+            <div class="row">
 
-                #if($content.jobDetails.jobAd.sections.companyDescription.text.length() > 0)
-                    <h4>Company Description</h4>
-                    <span class="text-justify">${content.jobDetails.jobAd.sections.companyDescription.text}</span>
-                    <br>
-                #end
+                <div class="col-md-8">
 
-                #if($content.jobDetails.jobAd.sections.jobDescription.text.length() > 0)
-                    <h4>Job Description</h4>
-                    <span class="text-justify">${content.jobDetails.jobAd.sections.jobDescription.text}</span>
-                    <br>
-                #end
+                    #if($content.posting.jobAd.sections.companyDescription.text.length() > 0)
+                        <h4>Company Description</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.companyDescription.text}</span>
+                        <br>
+                    #end
 
-                #if($content.jobDetails.jobAd.sections.qualifications.text.length() > 0)
-                    <h4>Qualifications</h4>
-                    <span class="text-justify">${content.jobDetails.jobAd.sections.qualifications.text}</span>
-                    <br>
-                #end
+                    #if($content.posting.jobAd.sections.jobDescription.text.length() > 0)
+                        <h4>Job Description</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.jobDescription.text}</span>
+                        <br>
+                    #end
 
-                #if($content.jobDetails.jobAd.sections.additionalInformation.text.length() > 0)
-                    <h4>Additional Information</h4>
-                    <span class="text-justify">${content.jobDetails.jobAd.sections.additionalInformation.text}</span>
-                    <br>
-                #end
+                    #if($content.posting.jobAd.sections.qualifications.text.length() > 0)
+                        <h4>Qualifications</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.qualifications.text}</span>
+                        <br>
+                    #end
 
-                <h5>Job Location:</h5>
-                <p class="text-muted">
-                    City: <strong>${content.jobDetails.location.city}</strong>
-                    <br>Address: ${content.jobDetails.location.address}
-                    <br>$!{content.jobDetails.location.postalCode} $!{content.jobDetails.location.country}
-                </p>
+                    #if($content.posting.jobAd.sections.additionalInformation.text.length() > 0)
+                        <h4>Additional Information</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.additionalInformation.text}</span>
+                        <br>
+                    #end
+
+                    #if($content.posting.industry.label)
+                        <p><b>Industry</b>: ${content.posting.industry.label}</p>
+                    #end
+                    #if($content.posting.function.label)
+                        <p><b>Function</b>: ${content.posting.function.label}</p>
+                    #end
+                    #if($content.posting.typeOfEmployment.label)
+                        <p><b>Type of employment</b>: ${content.posting.typeOfEmployment.label}</p>
+                    #end
+                    #if($content.posting.experienceLevel.label)
+                        <p><b>Experience level</b>: ${content.posting.experienceLevel.label}</p>
+                    #end
+                    #if($content.posting.department.label)
+                        <p><b>Department</b>: ${content.posting.department.label}</p>
+                    #end
+
+                    <h5>Location:</h5>
+                    <p class="text-muted">
+                        #if($content.posting.location.country)
+                            Country: <strong>$!{content.posting.location.country}</strong><br>
+                        #end
+                        #if($content.posting.location.region)
+                            Region: <strong>$!{content.posting.location.region}</strong><br>
+                        #end
+                        #if($content.posting.location.city)
+                            City: <strong>$!{content.posting.location.city}</strong>
+                        #end
+                    </p>
+
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <a href="${content.posting.applyUrl}" class="form-control btn btn-primary btn-lg">I'm interested</a>
+                    <small class="form-text text-muted">Apply on standard page</small>
+                </div>
 
             </div>
 
-            <div class="col-md-4 text-center">
-                <a href="${content.jobDetails.actions.applyOnWeb.url}" class="form-control btn btn-primary btn-lg">I'm interested</a>
-                <small class="form-text text-muted">Apply on standard page</small>
+            <div class="row d-none d-md-block text-center">
+                <div class="col-md-12">
+                    <a href="${content.posting.applyUrl}" class="form-control btn btn-primary btn-lg">I'm interested</a>
+                    <small class="form-text text-muted">Apply on standard page</small>
+                </div>
+
             </div>
-
-        </div>
-
-        <div class="row d-none d-md-block text-center">
-            <div class="col-md-12">
-                <a href="${content.jobDetails.actions.applyOnWeb.url}" class="form-control btn btn-primary btn-lg">I'm interested</a>
-                <small class="form-text text-muted">Apply on standard page</small>
-            </div>
-
-        </div>
+        #end
 
     </div>
 
@@ -104,9 +145,12 @@
 
 <footer class="text-muted">
     <div class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>Job Page Demo</p>
-        <p>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>. <a href="https://github.com/e-petrelli/jobpagedemo">Source code on GitHub</a></p>
+        <div class="float-right"><a href="#">Back to top</a></div>
+        <p>
+            <strong>Job Page Demo</strong>
+            <br>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>
+            <br>Source code on <a href="https://github.com/e-petrelli/jobpagedemo">GitHub</a>
+        </p>
     </div>
 </footer>
 

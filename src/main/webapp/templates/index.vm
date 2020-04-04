@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="shortcut icon" type="image/png" href="/favicon.ico"/>
-    <title>Job Page Demo</title>
+    <title>Job Page Demo - ${content.companyIdentifier}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/index.html?smartToken=${content.smartToken}&language=${content.language}">Job Page Demo</a>
+        <a class="navbar-brand" href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}">Job Page Demo - ${content.companyIdentifier}</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,17 +20,17 @@
                     <span class="nav-link">
                         Language:
                         <div class="btn-group">
-                          <a href="/index.html?smartToken=${content.smartToken}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
-                          <a href="/index.html?smartToken=${content.smartToken}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
-                          <a href="/index.html?smartToken=${content.smartToken}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
+                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
+                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
+                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
                         </div>
                     </span>
                 </li>
             </ul>
             <form method="get" class="form-inline mt-2 mt-md-0" action="/index.html">
-                <input type="hidden" name="smartToken" value="${content.smartToken}">
+                <input type="hidden" name="companyIdentifier" value="${content.companyIdentifier}">
                 <input type="hidden" name="language" value="${content.language}">
-                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" value="$!{content.searchText}">
+                <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search" value="$!{content.q}">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
@@ -46,17 +46,13 @@
             <br>
             <h1 class="jumbotron-heading">Job Page Demo</h1>
             <p class="lead text-muted">This page is built using SmartRecruiters API's</p>
-            <p class="lead text-muted">The API token in use belongs to <strong>${content.userEntity.firstName} ${content.userEntity.lastName} (${content.userEntity.email})</strong></p>
-            <!--
-                        <p>
-                            <a href="#" class="btn btn-primary my-2">Main call to action</a>
-                            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-                        </p>
-            -->
+            <p class="lead text-muted">Current Company Identifier is <strong>${content.companyIdentifier}</strong></p>
         </div>
     </section>
 
-    #if ($content.JobSummaries.size() == 0)
+    <div class="container">
+
+        #if ($content.postings.size() == 0)
         <div class="alert alert-success" role="alert">
             Sorry, no jobs found with this combination of parameters
         </div>
@@ -66,21 +62,20 @@
         <br>
         <br>
         <br>
-    #else
-        <div class="album py-5 bg-light">
-            <div class="container">
+        #else
+            <div class="album py-5 bg-light">
                 <div class="row">
-                    #foreach( $jobSummary in $content.JobSummaries )
+                    #foreach( $posting in $content.postings )
                         <div class="col-md-4 col-sm-6">
                             <div class="card mb-4 box-shadow">
                                 <div class="card-body">
-                                    <h5 class="card-title">$jobSummary.title</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">$!{jobSummary.department.label}</h6>
-                                    <p class="card-text">$jobSummary.location.city</p>
+                                    <h5 class="card-title">$posting.name</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">$!{posting.department.label}</h6>
+                                    <p class="card-text">$posting.location.city</p>
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <a href="/jobDetail/${jobSummary.id}.html?smartToken=${content.smartToken}&language=${content.language}" class="btn btn-sm btn-outline-secondary">View details</a>
+                                        <a href="/jobDetail.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}&refNumber=${posting.refNumber}" class="btn btn-sm btn-outline-secondary">View details</a>
                                         <small class="text-muted text-right">
-                                            ref: $jobSummary.refNumber
+                                            ref: $posting.refNumber
                                         </small>
                                     </div>
                                 </div>
@@ -89,18 +84,20 @@
                     #end
                 </div>
             </div>
+        #end
         </div>
-    #end
-    </div>
     </div>
 
 </main>
 
 <footer class="text-muted">
     <div class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p>Job Page Demo</p>
-        <p>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>. <a href="https://github.com/e-petrelli/jobpagedemo">Source code on GitHub</a></p>
+        <div class="float-right"><a href="#">Back to top</a></div>
+        <p>
+            <strong>Job Page Demo</strong>
+            <br>More info visit <a href="https://www.smartrecruiters.com">SmartRecruiters</a>
+            <br>Source code on <a href="https://github.com/e-petrelli/jobpagedemo">GitHub</a>
+        </p>
     </div>
 </footer>
 

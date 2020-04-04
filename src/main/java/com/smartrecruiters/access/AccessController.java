@@ -1,9 +1,7 @@
 package com.smartrecruiters.access;
 
 import com.smartrecruiters.Constants;
-import com.smartrecruiters.api.users.UsersApi;
-import com.smartrecruiters.api.users.invoker.ApiException;
-import com.smartrecruiters.api.users.model.UserEntity;
+import org.apache.commons.lang.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.logging.Logger;
@@ -12,24 +10,15 @@ public class AccessController {
 
     private static Logger logger = Logger.getLogger(AccessController.class.getName());
 
-    public Boolean hasAccess(HttpServletRequest request) {
+    public Boolean hasCompanyIdentifierParameter(HttpServletRequest request) {
 
-        String sSmartToken = request.getParameter(Constants.PARAMTER_SMARTTOKEN);
+        String companyIdentifier = request.getParameter(Constants.PARAMTER_COMPANYIDENTIFIER);
 
-        if (sSmartToken != null) {
-            logger.info("Parameter found on request: " + sSmartToken);
-
-            // Checks Token:
-            UsersApi usersApi = new UsersApi();
-            usersApi.getApiClient().setApiKey(sSmartToken);
-            try {
-                UserEntity userEntity = usersApi.usersMe();
-                logger.info("success: user is " + userEntity.getEmail());
-                return Boolean.TRUE;
-            } catch (ApiException e) {
-                logger.info("failure getting user: " + e.getResponseBody());
-            }
+        if (StringUtils.isNotEmpty(companyIdentifier)) {
+            logger.info("Parameter companyIdentifier found on request: " + companyIdentifier);
+            return Boolean.TRUE;
         }
         return Boolean.FALSE;
     }
+
 }

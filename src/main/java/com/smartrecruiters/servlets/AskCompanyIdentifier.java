@@ -1,4 +1,4 @@
-package com.smartrecruiters;
+package com.smartrecruiters.servlets;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.StringWriter;
 
-@WebServlet(name = "HelloAppEngine", value = "/smartToken.html")
-public class SmartTokenServlet extends HttpServlet {
+@WebServlet(name = "askCompanyIdentifier", value = "/askCompanyIdentifier.html")
+public class AskCompanyIdentifier extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -20,7 +20,7 @@ public class SmartTokenServlet extends HttpServlet {
     response.setContentType("text/html");
     VelocityEngine ve = new VelocityEngine();
     ve.init();
-    Template t = ve.getTemplate("templates/smartToken.vm");
+    Template t = ve.getTemplate("templates/askCompanyIdentifier.vm");
     VelocityContext context = new VelocityContext();
     t.merge( context, response.getWriter() );
   }
