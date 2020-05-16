@@ -9,9 +9,6 @@
 </head>
 <body>
 
-<!--
-<pre>${content.posting}</pre>
--->
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -67,27 +64,27 @@
 
                 <div class="col-md-8">
 
-                    #if($content.posting.jobAd.sections.companyDescription.text.length() > 0)
+                    #if($content.posting.jobAd.companyDescription.text.length() > 0)
                         <h4>Company Description</h4>
-                        <span class="text-justify">${content.posting.jobAd.sections.companyDescription.text}</span>
+                        <span class="text-justify">${content.posting.jobAd.companyDescription.text}</span>
                         <br>
                     #end
 
-                    #if($content.posting.jobAd.sections.jobDescription.text.length() > 0)
+                    #if($content.posting.jobAd.jobDescription.text.length() > 0)
                         <h4>Job Description</h4>
-                        <span class="text-justify">${content.posting.jobAd.sections.jobDescription.text}</span>
+                        <span class="text-justify">${content.posting.jobAd.jobDescription.text}</span>
                         <br>
                     #end
 
-                    #if($content.posting.jobAd.sections.qualifications.text.length() > 0)
+                    #if($content.posting.jobAd.qualifications.text.length() > 0)
                         <h4>Qualifications</h4>
-                        <span class="text-justify">${content.posting.jobAd.sections.qualifications.text}</span>
+                        <span class="text-justify">${content.posting.jobAd.qualifications.text}</span>
                         <br>
                     #end
 
-                    #if($content.posting.jobAd.sections.additionalInformation.text.length() > 0)
+                    #if($content.posting.jobAd.additionalInformation.text.length() > 0)
                         <h4>Additional Information</h4>
-                        <span class="text-justify">${content.posting.jobAd.sections.additionalInformation.text}</span>
+                        <span class="text-justify">${content.posting.jobAd.additionalInformation.text}</span>
                         <br>
                     #end
 
@@ -141,6 +138,11 @@
     </div>
 
 </main>
+
+<!--
+<pre>${content.posting}</pre>
+-->
+
 <br><br>
 
 <footer class="text-muted">

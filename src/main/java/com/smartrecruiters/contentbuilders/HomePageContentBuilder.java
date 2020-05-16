@@ -1,7 +1,6 @@
 package com.smartrecruiters.contentbuilders;
 
 import com.smartrecruiters.Constants;
-import com.smartrecruiters.api.users.invoker.ApiException;
 import com.smartrecruiters.contents.HomePageContent;
 import com.smartrecruiters.dao.PostingsDAO;
 
@@ -9,17 +8,27 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HomePageContentBuilder {
 
-    private static PostingsDAO postingsDAO = new PostingsDAO();
-
-    public HomePageContent getContent(HttpServletRequest httpServletRequest) throws ApiException {
+    public HomePageContent getContent(HttpServletRequest httpServletRequest) {
 
         HomePageContent homePageContent = new HomePageContent();
+        PostingsDAO postingsDAO = new PostingsDAO(httpServletRequest);
 
-        homePageContent.setCompanyIdentifier(httpServletRequest.getParameter(Constants.PARAMTER_COMPANYIDENTIFIER));
+        homePageContent.setCompanyIdentifier(postingsDAO.getCompanyIdentifier());
         homePageContent.setLanguage(httpServletRequest.getParameter(Constants.PARAMTER_LANGUAGE));
-        homePageContent.setQ(httpServletRequest.getParameter(Constants.PARAMTER_SEARCHTEXT));
+        homePageContent.setDepartment(postingsDAO.getDepartment());
+        homePageContent.setCountry(postingsDAO.getCountry());
+        homePageContent.setRegion(postingsDAO.getRegion());
+        homePageContent.setCity(postingsDAO.getCity());
+        homePageContent.setQ(postingsDAO.getQ());
 
-        homePageContent.setPostings(postingsDAO.getPostings(httpServletRequest));
+
+        homePageContent.setPostings(postingsDAO.getPostingListFiltered());
+
+        homePageContent.setLanguages(postingsDAO.getAvailableLanguages());
+        homePageContent.setDepartments(postingsDAO.getDepartments());
+        homePageContent.setCountries(postingsDAO.getAvailableCountries());
+        homePageContent.setRegions(postingsDAO.getAvailableCRegions());
+        homePageContent.setCities(postingsDAO.getAvailableCities());
 
         return  homePageContent;
     }

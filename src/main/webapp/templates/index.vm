@@ -43,10 +43,52 @@
         <div class="container">
             <br>
             <br>
-            <br>
             <h1 class="jumbotron-heading">Job Page Demo</h1>
             <p class="lead text-muted">This page is built using SmartRecruiters API's</p>
-            <p class="lead text-muted">Current Company Identifier is <strong>${content.companyIdentifier}</strong></p>
+            <p class="lead text-muted">Current Company Identifier is <b>${content.companyIdentifier}</b></p>
+            <!-- countries -->
+            #if($content.countries.size() > 1)
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-md-12 text-center">
+                        <h5>Filter by Country</h5>
+                        #foreach( $country in $content.countries.keySet())
+                            <a class="btn btn-lg #if($content.country == $country) btn-dark #else btn-secondary #end" href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}&country=$country" style="margin-bottom: 10px">
+                                $country.toUpperCase()&nbsp;&nbsp;<span class="badge badge-light">$content.countries.get($country)</span>
+                            </a>
+                        #end
+                    </div>
+                </div>
+            #end
+
+            <!-- regions -->
+            #if($content.country == 'us' && $content.regions.size() > 1 && (${content.country} || $content.countries.size() < 2))
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-md-12 text-center">
+                        <h5>State / region</h5>
+                        #foreach( $region in $content.regions.keySet())
+                            <a class="btn #if($content.region == $region) btn-dark #else btn-secondary #end" href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}&country=$!content.country&region=$region" style="margin-bottom: 10px">
+                                $region&nbsp;&nbsp;<span class="badge badge-light">$content.regions.get($region)</span>
+                            </a>
+                        #end
+                    </div>
+                </div>
+            #end
+
+            <!-- cities -->
+            #if($content.cities.size() > 1
+                && (${content.country} || $content.countries.size() < 2)
+                && ((${content.region} || $content.region.size() < 2) || $content.country!='us'))
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-md-12 text-center">
+                        <h5>City</h5>
+                        #foreach( $city in $content.cities.keySet())
+                            <a class="btn  #if($content.city == $city) btn-dark #else btn-secondary #end" href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}&country=$!content.country&region=$!content.region&city=$city" style="margin-bottom: 10px">
+                                $city&nbsp;&nbsp;<span class="badge badge-light">$content.cities.get($city)</span>
+                            </a>
+                        #end
+                    </div>
+                </div>
+            #end
         </div>
     </section>
 
@@ -63,32 +105,36 @@
         <br>
         <br>
         #else
-            <div class="album py-5 bg-light">
-                <div class="row">
-                    #foreach( $posting in $content.postings )
-                        <div class="col-md-4 col-sm-6">
-                            <div class="card mb-4 box-shadow">
-                                <div class="card-body">
-                                    <h5 class="card-title">$posting.name</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">$!{posting.department.label}</h6>
-                                    <p class="card-text">$posting.location.city</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <a href="/jobDetail.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}&refNumber=${posting.refNumber}" class="btn btn-sm btn-outline-secondary">View details</a>
-                                        <small class="text-muted text-right">
-                                            ref: $posting.refNumber
-                                        </small>
-                                    </div>
+            <div class="row">
+                #foreach( $posting in $content.postings )
+                    <div class="col-md-4 col-sm-6">
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h5 class="card-title">$posting.name</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">$!{posting.department.label}</h6>
+                                <p class="card-text">$posting.location.city</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="/jobDetail.html?companyIdentifier=${content.companyIdentifier}&language=${content.language}&refNumber=${posting.refNumber}" class="btn btn-sm btn-outline-secondary">View details</a>
+                                    <small class="text-muted text-right">
+                                        ref: $posting.refNumber
+                                    </small>
                                 </div>
                             </div>
                         </div>
-                    #end
-                </div>
+                    </div>
+                #end
             </div>
         #end
         </div>
     </div>
 
 </main>
+
+<!--
+<pre>
+    ${content.departments}
+</pre>
+-->
 
 <footer class="text-muted">
     <div class="container">

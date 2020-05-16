@@ -1,73 +1,131 @@
 package com.smartrecruiters.contents;
 
-import com.smartrecruiters.Constants;
-import com.smartrecruiters.api.users.invoker.ApiException;
-import com.smartrecruiters.api.users.model.Department;
-import com.smartrecruiters.api.users.model.Posting;
-import com.smartrecruiters.dao.PostingsDAO;
+import com.smartrecruiters.api.posting.model.Department;
+import com.smartrecruiters.api.posting.model.PostingItem;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class HomePageContent {
 
-    private static Logger logger = Logger.getLogger("HomePageContent");
-
     private String companyIdentifier;
     private String language;
+    private String department;
+    private String country;
+    private String region;
+    private String city;
     private String q;
 
-    private List<Posting> postings;
+    private List<PostingItem> postings;
     private List<Department> departments;
+    private Collection<String> languages;
+    private Hashtable<String,Integer> countries;
+    private Hashtable<String,Integer> regions;
+    private Hashtable<String,Integer> cities;
 
-    @SuppressWarnings("unused")
     public String getCompanyIdentifier() {
         return companyIdentifier;
     }
 
-    @SuppressWarnings("unused")
     public void setCompanyIdentifier(String companyIdentifier) {
         this.companyIdentifier = companyIdentifier;
     }
 
-    @SuppressWarnings("unused")
     public String getLanguage() {
         return language;
     }
 
-    @SuppressWarnings("unused")
     public void setLanguage(String language) {
         this.language = language;
     }
 
-    @SuppressWarnings("unused")
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getQ() {
         return q;
     }
 
-    @SuppressWarnings("unused")
     public void setQ(String q) {
         this.q = q;
     }
 
-    @SuppressWarnings("unused")
-    public List<Posting> getPostings() {
+    public List<PostingItem> getPostings() {
         return postings;
     }
 
-    @SuppressWarnings("unused")
-    public void setPostings(List<Posting> postings) {
+    public void setPostings(List<PostingItem> postings) {
         this.postings = postings;
     }
 
-    @SuppressWarnings("unused")
     public List<Department> getDepartments() {
         return departments;
     }
 
-    @SuppressWarnings("unused")
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
+    }
+
+    public Collection<String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Collection<String> languages) {
+        this.languages = languages;
+    }
+
+    public Hashtable<String, Integer> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Hashtable<String, Integer> countries) {
+        this.countries = countries;
+    }
+
+    public Hashtable<String, Integer> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(Hashtable<String, Integer> regions) {
+        this.regions = regions;
+    }
+
+    public Hashtable<String, Integer> getCities() {
+        return cities;
+    }
+
+    public void setCities(Hashtable<String, Integer> cities) {
+        this.cities = cities;
     }
 }

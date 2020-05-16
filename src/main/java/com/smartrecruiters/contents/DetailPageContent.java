@@ -1,12 +1,11 @@
 package com.smartrecruiters.contents;
 
-import com.smartrecruiters.api.users.model.Posting;
+import com.smartrecruiters.api.posting.model.Posting;
 
 public class DetailPageContent {
 
     private String companyIdentifier;
     private String language;
-    private String refNumber;
 
     private Posting posting = null;
 
@@ -32,16 +31,6 @@ public class DetailPageContent {
     @SuppressWarnings("unused")
     public void setLanguage(String language) {
         this.language = language;
-    }
-
-    @SuppressWarnings("unused")
-    public String getRefNumber() {
-        return refNumber;
-    }
-
-    @SuppressWarnings("unused")
-    public void setRefNumber(String refNumber) {
-        this.refNumber = refNumber;
     }
 
     @SuppressWarnings("unused")

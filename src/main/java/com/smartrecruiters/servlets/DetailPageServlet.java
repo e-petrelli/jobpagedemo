@@ -2,7 +2,7 @@ package com.smartrecruiters.servlets;
 
 import com.smartrecruiters.Constants;
 import com.smartrecruiters.access.AccessController;
-import com.smartrecruiters.api.users.invoker.ApiException;
+import com.smartrecruiters.api.posting.invoker.ApiException;
 import com.smartrecruiters.contentbuilders.DetailPageContentBuilder;
 import com.smartrecruiters.contents.DetailPageContent;
 import org.apache.velocity.Template;

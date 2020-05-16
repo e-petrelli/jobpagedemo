@@ -2,7 +2,7 @@ package com.smartrecruiters.servlets;
 
 import com.smartrecruiters.Constants;
 import com.smartrecruiters.access.AccessController;
-import com.smartrecruiters.api.users.invoker.ApiException;
+import com.smartrecruiters.api.posting.invoker.ApiException;
 import com.smartrecruiters.contentbuilders.HomePageContentBuilder;
 import com.smartrecruiters.contents.HomePageContent;
 import org.apache.velocity.Template;
@@ -36,22 +36,17 @@ public class HomePageServlet extends HttpServlet {
             return;
         }
 
-        try {
-            log("index: Preparing page content:");
-            HomePageContentBuilder homePageContentBuilder = new HomePageContentBuilder();
-            HomePageContent homePageContent = homePageContentBuilder.getContent(request);
+        log("index: Preparing page content:");
+        HomePageContentBuilder homePageContentBuilder = new HomePageContentBuilder();
+        HomePageContent homePageContent = homePageContentBuilder.getContent(request);
 
-            response.setContentType("text/html");
-            VelocityEngine ve = new VelocityEngine();
-            ve.init();
-            Template t = ve.getTemplate("templates/index.vm");
-            VelocityContext context = new VelocityContext();
-            context.put("content", homePageContent);
-            t.merge( context, response.getWriter() );
-        } catch (ApiException e) {
-            e.printStackTrace();
-            response.sendRedirect(Constants.ASK_COMPANY_IDENTIFIER_HTML);
-        }
+        response.setContentType("text/html");
+        VelocityEngine ve = new VelocityEngine();
+        ve.init();
+        Template t = ve.getTemplate("templates/index.vm");
+        VelocityContext context = new VelocityContext();
+        context.put("content", homePageContent);
+        t.merge( context, response.getWriter() );
 
     }
 }
