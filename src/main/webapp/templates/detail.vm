@@ -104,6 +104,15 @@
                         <p><b>Department</b>: ${content.posting.department.label}</p>
                     #end
 
+                    #if($content.posting.customField.size() > 0)
+                        <h5>Additional Information: <span class="text-muted small">(maybe visible, maybe not, but exposed through API)</span></h5>
+                        <p class="text-muted">
+                            #foreach( $customField in $content.posting.customField )
+                                $customField.fieldLabel: <strong>$customField.valueLabel</strong><br>
+                            #end
+                        </p>
+                    #end
+
                     <h5>Location:</h5>
                     <p class="text-muted">
                         #if($content.posting.location.country)
@@ -121,7 +130,7 @@
 
                 <div class="col-md-4 text-center">
                     <a href="${content.posting.applyUrl}" class="form-control btn btn-primary btn-lg">I'm interested</a>
-                    <small class="form-text text-muted">Apply on standard page</small>
+                    <small class="form-text text-muted">Apply choice: apply on SmartRecruiters page</small>
                 </div>
 
             </div>
@@ -129,7 +138,7 @@
             <div class="row d-none d-md-block text-center">
                 <div class="col-md-12">
                     <a href="${content.posting.applyUrl}" class="form-control btn btn-primary btn-lg">I'm interested</a>
-                    <small class="form-text text-muted">Apply on standard page</small>
+                    <small class="form-text text-muted">Apply on SmartRecruiters </small>
                 </div>
 
             </div>
@@ -139,9 +148,8 @@
 
 </main>
 
-<!--
+
 <pre>${content.posting}</pre>
--->
 
 <br><br>
 
