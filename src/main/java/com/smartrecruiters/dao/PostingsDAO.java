@@ -204,23 +204,31 @@ public class PostingsDAO {
     /**
      * @return the list of available language codes, based on all postings
      */
-    public Collection<String> getAvailableLanguages() {
+    public Hashtable<String, String> getAvailableLanguages() {
 
         Hashtable<String, String> htLanguages = new Hashtable<>(0);
         if (this.postingListAll != null) {
             for (PostingItem postingItem : this.postingListAll) {
-
-                // when the posting api doc will be correct, then getLanguage()getCode() will work.
-
+                htLanguages.put(postingItem.getLanguage().getCode(), postingItem.getLanguage().getLabelNative());
             }
         }
+        return htLanguages;
+    }
 
-        // FIXME as I am a temporary solution
-        htLanguages.put("en", "en");
-        htLanguages.put("fr", "fr");
-        htLanguages.put("ru", "ru");
+    /**
+     * @return the list of available language codes, based on all postings
+     */
+    public Hashtable<String, String> getAvailableLanguagesForPosting(String refNumber) {
 
-        return htLanguages.values();
+        Hashtable<String, String> htLanguages = new Hashtable<>(0);
+        if (this.postingListAll != null) {
+            for (PostingItem postingItem : this.postingListAll) {
+                if(postingItem.getRefNumber().equals(refNumber)) {
+                    htLanguages.put(postingItem.getLanguage().getCode(), postingItem.getLanguage().getLabelNative());
+                }
+            }
+        }
+        return htLanguages;
     }
 
     /**

@@ -20,7 +20,7 @@ public class HomePageContent {
 
     private List<PostingItem> postings;
     private List<Department> departments;
-    private Collection<String> languages;
+    private Hashtable<String,String> languages;
     private Hashtable<String,Integer> countries;
     private Hashtable<String,Integer> regions;
     private Hashtable<String,Integer> cities;
@@ -97,14 +97,6 @@ public class HomePageContent {
         this.departments = departments;
     }
 
-    public Collection<String> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(Collection<String> languages) {
-        this.languages = languages;
-    }
-
     public Hashtable<String, Integer> getCountries() {
         return countries;
     }
@@ -127,5 +119,13 @@ public class HomePageContent {
 
     public void setCities(Hashtable<String, Integer> cities) {
         this.cities = cities;
+    }
+
+    public Hashtable<String, String> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(Hashtable<String, String> languages) {
+        this.languages = languages;
     }
 }

@@ -15,14 +15,15 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
+
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
                 <li class="nav-item active">
                     <span class="nav-link">
                         Language:
                         <div class="btn-group">
-                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
-                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
-                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
+                            #foreach( $language in $content.languages.keySet())
+                                <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=${language}" class="btn #if(${content.language}==${language}) btn-light #else btn-outline-secondary #end ">&nbsp;${content.languages.get($language)}&nbsp;</a>
+                            #end
                         </div>
                     </span>
                 </li>
@@ -130,11 +131,6 @@
 
 </main>
 
-<!--
-<pre>
-    ${content.departments}
-</pre>
--->
 
 <footer class="text-muted">
     <div class="container">

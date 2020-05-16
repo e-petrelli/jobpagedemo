@@ -19,9 +19,14 @@ public class DetailPageContentBuilder {
         detailPageContent.setCompanyIdentifier(postingsDAO.getCompanyIdentifier());
         detailPageContent.setLanguage(httpServletRequest.getParameter(Constants.PARAMTER_LANGUAGE));
 
+        String refNumber = httpServletRequest.getParameter(Constants.PARAMETER_REFNUMBER);
+        detailPageContent.setRefNumber(refNumber);
+
+        detailPageContent.setLanguages(postingsDAO.getAvailableLanguagesForPosting(refNumber));
+
         List<PostingItem> postingItems = postingsDAO.getPostingListFiltered();
         for(PostingItem postingItem : postingItems) {
-            if(postingItem.getRefNumber().equals(httpServletRequest.getParameter(Constants.PARAMETER_REFNUMBER))) {
+            if(postingItem.getRefNumber().equals(refNumber)) {
                 detailPageContent.setPosting(postingsDAO.getPosting(postingItem.getId()));
             }
         }

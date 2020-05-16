@@ -16,16 +16,19 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
                 <li class="nav-item active">
                     <span class="nav-link">
-                        Language:
-                        <div class="btn-group">
-                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=en" class="btn btn-sm #if(${content.language}=='en') btn-light #else btn-outline-secondary #end ">EN</a>
-                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=fr" class="btn btn-sm #if(${content.language}=='fr') btn-light #else btn-outline-secondary #end ">FR</a>
-                          <a href="/index.html?companyIdentifier=${content.companyIdentifier}&language=ru" class="btn btn-sm #if(${content.language}=='ru') btn-light #else btn-outline-secondary #end ">RU</a>
-                        </div>
+                        #if($content.languages.size() > 1)
+                            Language:
+                            <div class="btn-group">
+                                #foreach( $language in $content.languages.keySet())
+                                    <a href="/jobDetail.html?companyIdentifier=${content.companyIdentifier}&language=${language}&refNumber=${content.refNumber}" class="btn #if(${content.language}==${language}) btn-light #else btn-outline-secondary #end ">&nbsp;${content.languages.get($language)}&nbsp;</a>
+                                #end
+                            </div>
+                        #end
                     </span>
                 </li>
             </ul>
@@ -64,29 +67,34 @@
 
                 <div class="col-md-8">
 
-                    #if($content.posting.jobAd.companyDescription.text.length() > 0)
-                        <h4>Company Description</h4>
-                        <span class="text-justify">${content.posting.jobAd.companyDescription.text}</span>
+                    #if($content.posting.jobAd.sections.companyDescription.text.length() > 0)
+                        <h4>$!{content.posting.jobAd.sections.companyDescription.title}</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.companyDescription.text}</span>
+                        <br>
                         <br>
                     #end
 
-                    #if($content.posting.jobAd.jobDescription.text.length() > 0)
-                        <h4>Job Description</h4>
-                        <span class="text-justify">${content.posting.jobAd.jobDescription.text}</span>
+                    #if($content.posting.jobAd.sections.jobDescription.text.length() > 0)
+                        <h4>$!{content.posting.jobAd.sections.jobDescription.title}</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.jobDescription.text}</span>
+                        <br>
                         <br>
                     #end
 
-                    #if($content.posting.jobAd.qualifications.text.length() > 0)
-                        <h4>Qualifications</h4>
-                        <span class="text-justify">${content.posting.jobAd.qualifications.text}</span>
+                    #if($content.posting.jobAd.sections.qualifications.text.length() > 0)
+                        <h4>$!{content.posting.jobAd.sections.qualifications.title}</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.qualifications.text}</span>
+                        <br>
                         <br>
                     #end
 
-                    #if($content.posting.jobAd.additionalInformation.text.length() > 0)
-                        <h4>Additional Information</h4>
-                        <span class="text-justify">${content.posting.jobAd.additionalInformation.text}</span>
+                    #if($content.posting.jobAd.sections.additionalInformation.text.length() > 0)
+                        <h4>$!{content.posting.jobAd.sections.additionalInformation.title}</h4>
+                        <span class="text-justify">${content.posting.jobAd.sections.additionalInformation.text}</span>
+                        <br>
                         <br>
                     #end
+
 
                     #if($content.posting.industry.label)
                         <p><b>Industry</b>: ${content.posting.industry.label}</p>
@@ -130,7 +138,7 @@
 
                 <div class="col-md-4 text-center">
                     <a href="${content.posting.applyUrl}" class="form-control btn btn-primary btn-lg">I'm interested</a>
-                    <small class="form-text text-muted">Apply choice: apply on SmartRecruiters page</small>
+                    <small class="form-text text-muted">Apply on SmartRecruiters page</small>
                 </div>
 
             </div>
@@ -147,9 +155,6 @@
     </div>
 
 </main>
-
-
-<pre>${content.posting}</pre>
 
 <br><br>
 
