@@ -273,7 +273,7 @@ public class PostingsDAO {
                 if(postingItem.getLocation()!=null) {
                     if(this.country == null || this.country.equals(postingItem.getLocation().getCountry())) {
                         if (postingItem.getLocation().getRegion() != null) {
-                            String region = WordUtils.capitalizeFully(postingItem.getLocation().getRegion());
+                            String region = postingItem.getLocation().getRegion();
                             int iCount = 1;
                             if (htRegions.containsKey(region)) {
                                 iCount = htRegions.get(region) + 1;
